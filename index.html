@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shopping Cart</title>
+
+    <link rel="stylesheet" href="style.css" media="screen" title="no title" charset="utf-8">
+    <script src="https://code.jquery.com/jquery-2.2.4.js" charset="utf-8"></script>
+    <meta name="robots" content="noindex,follow" />
+  </head>
+  <body>
+    <div class="shopping-cart">
+      <!-- Title -->
+      <div class="title">
+        Shopping Bag
+      </div>
+
+      <!-- Product #1 -->
+      <div class="item">
+        <div class="buttons">
+          <span class="delete-btn"></span>
+          <span class="like-btn"></span>
+        </div>
+
+        <div class="image">
+          <img src="1.jpg" alt="" />
+        </div>
+
+        <div class="description">
+          <span>NVIDIA</span>
+          <span>RTX 3060</span>
+          <span>BLACK</span>
+        </div>
+
+        <div class="quantity">
+          <button class="plus-btn" type="button" name="button">
+            <img src="plus.png" alt="" />
+          </button>
+          <input class="number" type="text" name="name" value="0">
+          <input class="price-holder" type="hidden" name="price" value="1800">
+          <button class="minus-btn" type="button" name="button">
+            <img src="minus.svg" alt="" />
+          </button>
+        </div>
+
+        <div class="total-price">1800DT</div>
+      </div>
+
+      <!-- Product #2 -->
+      <div class="item">
+        <div class="buttons">
+          <span class="delete-btn"></span>
+          <span class="like-btn"></span>
+        </div>
+
+        <div class="image">
+          <img src="2.jpg" alt=""/>
+        </div>
+
+        <div class="description">
+          <span>NVIDIA</span>
+          <span>GTX 1660 SUPER</span>
+          <span>GIGABYTE OC EDITON</span>
+        </div>
+
+        <div class="quantity">
+          <button class="plus-btn" type="button" name="button">
+            <img src="plus.png" alt="" />
+          </button>
+          <input class="number" type="text" name="name" value="0">
+          <input class="price-holder" type="hidden" name="price" value="700">
+          <button class="minus-btn" type="button" name="button">
+            <img src="minus.svg" alt="" />
+          </button>
+        </div>
+
+        <div class="total-price">700dt</div>
+      </div>
+
+      <!-- Product #3 -->
+      <div class="item">
+        <div class="buttons">
+          <span class="delete-btn"></span>
+          <span class="like-btn"></span>
+        </div>
+
+        <div class="image">
+          <img src="3.jpg" alt="" />
+        </div>
+
+        <div class="description">
+          <span>AMD GRAPHICS CARD</span>
+          <span>RX 6600XT </span>
+          <span>MSI</span>
+        </div>
+
+        <div class="quantity">
+          <button class="plus-btn" type="button" name="button">
+            <img src="plus.png" alt="" />
+          </button>
+          <input class="number" type="text" name="name" value="0">
+          <input class="price-holder" type="hidden" name="price" value="1650">
+          <button class="minus-btn" type="button" name="button">
+            <img src="minus.svg" alt="" />
+          </button>
+        </div>
+
+        <div class="total-price">1650DT</div>
+      </div>
+    </div>
+    <div class="parent">
+    <div id="finalprice">0dt</div>
+  </div>
+
+
+    <script type="text/javascript">
+      var totalPrice = 0;
+      $('.minus-btn').on('click', function(e) {
+    		e.preventDefault();
+    		var $this = $(this);
+    		var $input = $this.closest('div').find('.number');
+    		var $price = $this.closest('div').find('.price-holder');
+    		var value = parseInt($input.val());
+
+    		if (value > 1) {
+    			value = value - 1;
+    		} else {
+    			value = 0;
+    		}
+
+        $input.val(value);
+        var thisPrice = $this.closest('div').find()
+        totalPrice -= parseInt($price.val());
+        document.getElementById('finalprice').innerHTML = totalPrice + 'dt';
+        console.log($price.val())
+    	});
+
+    	$('.plus-btn').on('click', function(e) {
+    		e.preventDefault();
+    		var $this = $(this);
+    		var $input = $this.closest('div').find('.number');
+        var $price = $this.closest('div').find('.price-holder');
+        var value = parseInt($input.val());
+
+    		if (value < 100) {
+      		value = value + 1;
+    		} else {
+    			value =100;
+    		}
+
+    		$input.val(value);
+        totalPrice += parseInt($price.val());
+        document.getElementById('finalprice').innerHTML = totalPrice + 'dt';
+      });
+
+      $('.like-btn').on('click', function() {
+        $(this).toggleClass('is-active');
+      });
+    </script>
+  </body>
+</html>
