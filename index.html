@@ -70,7 +70,7 @@
           </button>
           <input class="number" type="text" name="name" value="0">
           <input class="price-holder" type="hidden" name="price" value="700">
-          <button class="minus-btn" type="button" name="button">
+          <button class="minus-btn" type="button" name="button" >
             <img src="minus.svg" alt="" />
           </button>
         </div>
@@ -114,49 +114,58 @@
   </div>
 
 
-    <script type="text/javascript">
-      var totalPrice = 0;
-      $('.minus-btn').on('click', function(e) {
-    		e.preventDefault();
-    		var $this = $(this);
-    		var $input = $this.closest('div').find('.number');
-    		var $price = $this.closest('div').find('.price-holder');
-    		var value = parseInt($input.val());
+  <!-- ... (Your HTML code) ... -->
 
-    		if (value > 1) {
-    			value = value - 1;
-    		} else {
-    			value = 0;
-    		}
+<script type="text/javascript">
+  var totalPrice = 0;
 
-        $input.val(value);
-        var thisPrice = $this.closest('div').find()
-        totalPrice -= parseInt($price.val());
-        document.getElementById('finalprice').innerHTML = totalPrice + 'dt';
-        console.log($price.val())
-    	});
+  $('.minus-btn').on('click', function(e) {
+    e.preventDefault();
+    var $this = $(this);
+    var $input = $this.closest('div').find('.number');
+    var $price = $this.closest('div').find('.price-holder');
+    var value = parseInt($input.val());
 
-    	$('.plus-btn').on('click', function(e) {
-    		e.preventDefault();
-    		var $this = $(this);
-    		var $input = $this.closest('div').find('.number');
-        var $price = $this.closest('div').find('.price-holder');
-        var value = parseInt($input.val());
+    if (value > 0) {
+      value = value - 1;
+      $this.removeAttr('disabled'); 
+    } else {
+      value = 0;
+      $this.attr('disabled', 'disabled');
+    }
 
-    		if (value < 100) {
-      		value = value + 1;
-    		} else {
-    			value =100;
-    		}
+    $input.val(value);
 
-    		$input.val(value);
-        totalPrice += parseInt($price.val());
-        document.getElementById('finalprice').innerHTML = totalPrice + 'dt';
-      });
+    // Prevent the total price from becoming negative
+    if (totalPrice - parseInt($price.val()) >= 0) {
+      totalPrice -= parseInt($price.val());
+    }
 
-      $('.like-btn').on('click', function() {
-        $(this).toggleClass('is-active');
-      });
-    </script>
-  </body>
+    document.getElementById('finalprice').innerHTML = totalPrice + 'dt';
+  });
+
+  $('.plus-btn').on('click', function(e) {
+    e.preventDefault();
+    var $this = $(this);
+    var $input = $this.closest('div').find('.number');
+    var $price = $this.closest('div').find('.price-holder');
+    var value = parseInt($input.val());
+
+    if (value < 100) {
+      value = value + 1;
+      $this.closest('div').find('.minus-btn').removeAttr('disabled'); // Enable minus button
+    } else {
+      value = 100;
+    }
+
+    $input.val(value);
+    totalPrice += parseInt($price.val());
+    document.getElementById('finalprice').innerHTML = totalPrice + 'dt';
+  });
+
+  $('.like-btn').on('click', function() {
+    $(this).toggleClass('is-active');
+  });
+</script>
+</body>
 </html>
